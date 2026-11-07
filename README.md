@@ -51,7 +51,6 @@ com $X_t$ = variáveis externas e $B_t$ = domésticas.
 
 | Notebook | Etapa |
 |---|---|
-| [01_ambiente](01_ambiente.ipynb) | Teste de conexão com BCB e FRED |
 | [02_coleta](02_coleta.ipynb) | Coleta: SGS/BCB, Focus, FRED, IPEADATA, CDS |
 | [03_tratamento](03_tratamento.ipynb) | Frequência mensal, log-diferenças, Focus em horizonte fixo, testes ADF/KPSS |
 | [04_regressao](04_regressao.ipynb) | MQO padronizado com erros HAC; decomposição do R² |
@@ -99,7 +98,7 @@ não encontra evidência de que o bloco doméstico antecipe o externo, o que apo
 3. Baixar manualmente o histórico diário do **CDS 5 anos do Brasil** no
    [Investing.com](https://www.investing.com/rates-bonds/brazil-cds-5-years-usd-historical-data)
    e salvar como `dados/brutos/cds_investing.csv`.
-4. Rodar os notebooks em ordem, de `01` a `07`.
+4. Rodar os notebooks em ordem, de `02` a `07`.
 
 Os dados brutos não estão no repositório: as séries públicas são baixadas pelo `02_coleta`, e o CSV
 do CDS e o VIX têm restrições de redistribuição. Como as fontes revisam dados, uma nova coleta pode

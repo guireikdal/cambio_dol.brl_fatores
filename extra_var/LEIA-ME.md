@@ -1,6 +1,6 @@
 # Extensão: VAR e decomposição da variância (FEVD)
 
-Material complementar, fora da análise principal (notebooks 01 a 07 na raiz).
+Material complementar, fora da análise principal (notebooks 02 a 07 na raiz).
 
 | Notebook | O que faz |
 |---|---|
@@ -16,5 +16,5 @@ como validação por um segundo método e acrescenta três informações:
   (p = 0,18), o que apoia a hipótese de economia pequena e aberta;
 - a Selic deixa de ser relevante quando se olha só a **surpresa** (a parte não antecipada).
 
-**Para rodar:** execute antes os notebooks 01 a 03 da raiz (eles geram `dados/tratados/`).
+**Para rodar:** execute antes os notebooks 02 e 03 da raiz (eles geram `dados/tratados/`).
 Os resultados destes notebooks são salvos em `extra_var/resultados/`.
