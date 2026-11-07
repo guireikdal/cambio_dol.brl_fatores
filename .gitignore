@@ -1,0 +1,15 @@
+# Dados: baixados pelo 02_coleta.ipynb (ou manualmente, no caso do CDS) — ver README
+dados/brutos/
+dados/tratados/
+
+# Jupyter / Python
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# Segredos (a chave do FRED fica na variável de ambiente FRED_API_KEY)
+.env
+
+# Sistema
+desktop.ini
+Thumbs.db

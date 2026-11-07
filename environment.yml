@@ -1,0 +1,17 @@
+name: cambio
+channels:
+  - defaults
+dependencies:
+  - python=3.13
+  - pandas=3.1
+  - numpy=2.5
+  - statsmodels=0.15
+  - matplotlib=3.11
+  - scipy
+  - openpyxl
+  - requests
+  - ipykernel
+  - pip
+  - pip:
+      - python-bcb==0.4.1
+      - fredapi==0.5.2
