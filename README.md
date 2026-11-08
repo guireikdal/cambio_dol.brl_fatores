@@ -1,90 +1,140 @@
 # Câmbio brasileiro: fatores externos ou domésticos?
 
-O que pesa mais sobre o real: o cenário internacional (juros americanos, aversão global ao risco,
-força do dólar) ou o Brasil (Selic, risco-país, expectativas fiscais)?
+## A pergunta
 
-**Resposta curta: depende do período.** Na média de 2009–2026, cerca de **60% da variação explicada**
-do câmbio vem de choques externos. Mas, nas janelas que incluem a crise fiscal e política de
-2015–2018, os choques domésticos passaram a dominar.
+O que mexe mais com o real: o que acontece **lá fora** (juros americanos, aversão global ao risco,
+força do dólar no mundo) ou o que acontece **aqui dentro** (Selic, risco-país, expectativas fiscais)?
 
-![Peso dos fatores externos ao longo do tempo](resultados/figuras/3_peso_externo_no_tempo.png)
+A pergunta surgiu numa discussão na faculdade. Cada lado tinha um episódio para defender — a crise
+de 2015, a eleição de 2018, a Covid — e ninguém conseguia fechar a questão. Este projeto tenta
+responder com dados.
 
-## Principais resultados
+**Resposta curta: depende do período.** Na média de 2009 a 2026, cerca de **63% da variação
+explicada** do câmbio vem de choques externos e 37% de choques domésticos. Mas a divisão muda
+bastante no tempo: nos anos que incluem a crise fiscal e política de 2015–2018, o Brasil passou a
+pesar mais que o mundo.
+
+![Peso dos fatores externos ao longo do tempo](resultados/figuras/6_post_peso_exterior.png)
+
+## Principais conclusões
+
+1. **Na média, o mundo pesa mais.** Dos ~59% da variação mensal do câmbio que o modelo explica,
+   cerca de 2/3 vêm de fora e 1/3 de dentro.
+2. **O canal externo é o dólar global, não os juros americanos.** Quando o dólar se fortalece contra
+   as moedas desenvolvidas, o real cai junto — é a variável de maior efeito no modelo.
+3. **O juro americano de 10 anos tem efeito pequeno e de sinal contrário ao esperado.** Em 6 dos 8
+   piores meses do real, os juros americanos *caíram*: nas crises, investidores compram Treasuries
+   (fuga para a qualidade) ao mesmo tempo em que vendem emergentes. O título de 10 anos funciona
+   mais como termômetro de medo e de crescimento do que como canal do *carry trade*.
+4. **O canal doméstico é o risco-país.** Selic e expectativa fiscal têm efeitos pequenos na variação
+   mensal — provavelmente porque o mercado já as antecipa.
+5. **O risco-país não é só "nosso".** Cerca de 35% da variação mensal do CDS brasileiro é contágio
+   global, e quase metade do efeito do dólar global chega ao real **através** do risco-país.
+6. **A divisão muda no tempo** (janela móvel de 5 anos, datada pelo fim):
+
+   | Janelas terminando em | Peso externo no explicado | O que estava dentro da janela |
+   |---|---|---|
+   | dez/2013 – dez/2015 | 84% | Pós-crise de 2008, liquidez global abundante |
+   | jan/2016 – jul/2018 | 68% | Crise fiscal e política de 2015–16 entrando |
+   | ago/2018 – ago/2023 | 46% | Recessão, rebaixamento, impeachment, eleição de 2018 |
+   | set/2023 – out/2026 | 65% | As crises de 2015–2018 saem da janela |
+
+   O ponto mais baixo é **39% (janela terminando em set/2019)**, quando os cinco anos anteriores
+   cobriam toda a crise doméstica.
+
+## O que olhamos (e por quê)
+
+Dados **mensais**, de jan/2009 a out/2026 (214 meses), sempre o valor do último dia útil do mês.
+
+| Bloco | Variável | Fonte | Por que esta |
+|---|---|---|---|
+| Câmbio | PTAX de venda | BCB (SGS 1) | Taxa oficial de referência, usada em contratos e derivativos |
+| Externa | Treasury 10 anos | FRED (DGS10) | Juros americanos de referência |
+| Externa | VIX | FRED (VIXCLS) | Aversão global ao risco ("índice do medo") |
+| Externa | Dólar vs. economias avançadas | FRED (DTWEXAFEGS) | Força global do dólar **sem** incluir o real na cesta |
+| Doméstica | Meta Selic | BCB (SGS 432) | Política monetária |
+| Doméstica | CDS 5 anos do Brasil | Investing.com | Risco-país, cotado diariamente até hoje |
+| Doméstica | Resultado primário esperado | Focus/BCB | Expectativa fiscal do mercado |
+
+## O que deixamos de fora (e por quê)
+
+| Ficou de fora | Motivo |
+|---|---|
+| **Crise de 2008** | O CDS disponível tem preços parados (sem negociação) durante quase todo 2008; a amostra começa em 2009 |
+| **EMBI+** como risco-país | Descontinuado em jul/2024. Usado só para validar o CDS: as variações mensais dos dois têm correlação de 0,84 |
+| **DXY** e índice amplo do dólar (Broad) | O DXY tem pesos de 1973 (o euro pesa ~58%); o Broad **inclui o real**, o que criaria correlação mecânica com a variável explicada |
+| **Dívida líquida** como variável fiscal | O Brasil é credor líquido em dólar: quando o real cai, a dívida líquida cai sozinha. Ela seria efeito do câmbio, não causa |
+| **Dívida bruta** | Só existe no Focus desde 2018, curto demais para janelas de 5 anos |
+| **Commodities, fluxo de capital, intervenções do BC** | Fora do escopo desta versão. São os candidatos naturais para reduzir os ~40% não explicados |
+| **Dados diários ou semanais** | Mais ruído e problemas de horário (a PTAX fecha às 13h de Brasília; o VIX no fechamento de Nova York). Selic e Focus têm ritmo mensal |
+
+## Metodologia
+
+**1. Tratamento** ([03_tratamento](03_tratamento.ipynb)). Preços e índices (câmbio, dólar, VIX, CDS)
+entram em variação percentual (100·Δln); taxas e % do PIB (Treasury, Selic, primário) em diferença
+simples. A expectativa fiscal é convertida para um **horizonte fixo de 12 meses** — sem isso, a série
+"salta" toda virada de ano, quando o Focus troca o ano de referência. Os testes ADF e KPSS confirmam
+que todas as variações são estacionárias (os níveis do câmbio, do dólar e dos juros não são).
+
+**2. Regressão** ([04_regressao](04_regressao.ipynb)). MQO com variáveis padronizadas (cada coeficiente
+é o efeito de um choque de 1 desvio-padrão) e erros-padrão robustos HAC (Newey-West). Estimamos
+três versões: só externas, só domésticas e todas juntas.
+
+**3. O problema da sobreposição.** Somando o que cada bloco explica sozinho, passa-se do total: **30%
+da variação é explicada pelos dois blocos ao mesmo tempo**, porque o CDS anda junto com o dólar
+global e o VIX. Sem resolver isso, não dá para dizer quanto é externo.
 
 | Método | Externo | Sobreposição | Doméstico | Não explicado | Externo / explicado |
 |---|---|---|---|---|---|
 | Regressão ingênua | 7% | 30% | 22% | 41% | indefinido |
 | Regressão com risco-país "limpo" | 37% | 0% | 22% | 41% | **63%** |
 
-*Cada linha divide 100% da variância mensal do câmbio (jan/2009–out/2026, 214 meses).
-"Sobreposição" é a parte que externas e domésticas explicam ao mesmo tempo (o CDS anda junto com
-o dólar global e o VIX); a limpeza do risco-país a atribui ao bloco externo. A última coluna
-ignora o não explicado: externo / (externo + doméstico).*
+*Cada linha divide 100% da variância mensal do câmbio. A última coluna ignora o não explicado.*
 
 ![Comparação dos métodos](resultados/figuras/1_comparacao_metodos.png)
 
-- **O canal externo é o dólar global, não os juros americanos.** O dólar tem o maior efeito do
-  modelo; o Treasury de 10 anos tem efeito pequeno e de sinal contrário ao esperado.
-- **O canal doméstico é o risco-país (CDS).** Selic e expectativa fiscal têm efeitos pequenos na
-  variação mensal.
-- **Quase metade do efeito do dólar global chega ao real via risco-país**: o CDS brasileiro sobe
-  quando o dólar se fortalece no mundo.
+**4. Limpeza do risco-país** ([05_limpeza_risco](05_limpeza_risco.ipynb)). Cada variável doméstica é
+regredida nas três externas; o **resíduo** é o componente genuinamente doméstico (a parte do CDS que
+o cenário global não explica). Isso atribui a sobreposição ao bloco externo e reflete a hipótese de
+**economia pequena e aberta**: no curto prazo, o mundo afeta o Brasil, e não o contrário.
+Fazendo a limpeza no sentido inverso, o peso externo cairia de 63% para 12% — **a conclusão depende
+dessa hipótese**, que é teórica, mas tem apoio empírico (ver Validação).
 
 ![Efeito de cada variável](resultados/figuras/2_efeito_por_variavel.png)
 
-- **O peso externo varia no tempo** (janelas de 5 anos, datadas pelo fim):
+**5. Janelas móveis** ([06_janelas_moveis](06_janelas_moveis.ipynb)). A regressão limpa é refeita em
+cada janela de 60 meses (e 84 meses, como robustez), deslizando um mês por vez. Cada ponto é datado
+no **fim** da janela. Consequência importante para a leitura: um episódio afeta o gráfico por cinco
+anos e **sai** de uma vez — o salto de out/2023, por exemplo, não vem de nada que aconteceu em 2023,
+e sim da eleição de 2018 deixando a janela.
 
-  | Janelas terminando em | Peso externo no explicado |
-  |---|---|
-  | dez/2013 – dez/2015 | 84% |
-  | jan/2016 – jul/2018 | 68% |
-  | ago/2018 – ago/2023 | 46% (mínimo de 39% em set/2019) |
-  | set/2023 – out/2026 | 65% |
+![Peso externo no tempo, versão técnica](resultados/figuras/3_peso_externo_no_tempo.png)
 
-## Método
-
-Modelo de partida:
-
-$$\Delta\ln(\text{USD/BRL})_t = \alpha + \beta_1 X_t + \beta_2 B_t + \varepsilon_t$$
-
-com $X_t$ = variáveis externas e $B_t$ = domésticas.
-
-| Notebook | Etapa |
-|---|---|
-| [02_coleta](02_coleta.ipynb) | Coleta: SGS/BCB, Focus, FRED, IPEADATA, CDS |
-| [03_tratamento](03_tratamento.ipynb) | Frequência mensal, log-diferenças, Focus em horizonte fixo, testes ADF/KPSS |
-| [04_regressao](04_regressao.ipynb) | MQO padronizado com erros HAC; decomposição do R² |
-| [05_limpeza_risco](05_limpeza_risco.ipynb) | Separação do risco-país em contágio global e componente doméstico |
-| [06_janelas_moveis](06_janelas_moveis.ipynb) | Regressão limpa em janelas móveis de 60 e 84 meses |
-| [07_resultados](07_resultados.ipynb) | Gráficos finais e tabela-resumo ([resumo.xlsx](resultados/resumo.xlsx)) |
-
-**Variáveis** (mensais, último dia útil):
-
-| Bloco | Variável | Fonte | Transformação |
-|---|---|---|---|
-| Dependente | PTAX de venda | SGS/BCB, série 1 | 100·Δln |
-| Externa | Treasury 10 anos | FRED, DGS10 | Δ |
-| Externa | VIX | FRED, VIXCLS | 100·Δln |
-| Externa | Dólar vs. economias avançadas | FRED, DTWEXAFEGS | 100·Δln |
-| Doméstica | Meta Selic | SGS/BCB, série 432 | Δ |
-| Doméstica | CDS 5 anos Brasil | Investing.com | 100·Δln |
-| Doméstica | Resultado primário esperado (12 meses à frente) | Focus/BCB | Δ |
-
-**Limpeza do risco-país.** Cada variável doméstica é regredida nas três externas; o resíduo é o
-componente doméstico. Isso atribui a sobreposição ao bloco externo, o que reflete a hipótese de
-economia pequena e aberta (o mundo afeta o Brasil no mesmo mês, não o contrário). Fazendo a
-limpeza no sentido inverso, o peso externo cairia de 63% para 12%: **a conclusão depende dessa
-hipótese**.
-
-**Validação.** A pasta [extra_var/](extra_var/) estima um VAR com decomposição da variância
-(FEVD) e chega aos mesmos 63% e às mesmas fases nas janelas móveis. O teste de Granger feito lá
-não encontra evidência de que o bloco doméstico antecipe o externo, o que apoia a hipótese acima.
+**Validação.** A pasta [extra_var/](extra_var/) estima um VAR com decomposição da variância (FEVD),
+um método diferente que chega aos mesmos 63% e às mesmas fases. O teste de Granger feito lá não
+encontra evidência de que o bloco doméstico antecipe o externo (p = 0,18), o que apoia a hipótese de
+economia pequena e aberta.
 
 ## Limitações
 
-- A amostra começa em 2009: o CDS disponível tem preços parados durante a maior parte de 2008.
-- Commodities, fluxos de capital e intervenções do BC estão fora do modelo (~40% não explicado).
-- As janelas móveis não têm intervalos de confiança; leia tendências, não oscilações de um mês.
+- Cerca de **40% da variação mensal do câmbio não é explicada** pelo modelo.
+- A divisão entre externo e doméstico **depende da hipótese** de que o mundo afeta o Brasil e não o
+  contrário.
+- Os efeitos medidos são **contemporâneos** (mesmo mês) e de associação, não causalidade estrita.
+- As janelas móveis não têm intervalos de confiança: leia tendências de vários anos, não oscilações
+  de um ou dois meses.
+
+## Estrutura do repositório
+
+| Arquivo | Conteúdo |
+|---|---|
+| [02_coleta](02_coleta.ipynb) | Coleta: SGS/BCB, Focus, FRED, IPEADATA e CDS |
+| [03_tratamento](03_tratamento.ipynb) | Frequência mensal, transformações, horizonte fixo do Focus, testes de estacionariedade |
+| [04_regressao](04_regressao.ipynb) | Regressões padronizadas com erros HAC e decomposição do R² |
+| [05_limpeza_risco](05_limpeza_risco.ipynb) | Limpeza das domésticas e decomposição do risco-país |
+| [06_janelas_moveis](06_janelas_moveis.ipynb) | Regressão limpa em janelas móveis |
+| [07_resultados](07_resultados.ipynb) | Gráficos finais e tabela-resumo ([resumo.xlsx](resultados/resumo.xlsx)) |
+| [extra_var/](extra_var/) | VAR e FEVD (validação por um segundo método) |
 
 ## Como reproduzir
 
