@@ -5,8 +5,8 @@
 O que mexe mais com o real: o que acontece **lá fora** (juros americanos, aversão global ao risco,
 força do dólar no mundo) ou o que acontece **aqui dentro** (Selic, risco-país, expectativas fiscais)?
 
-A pergunta surgiu numa discussão na faculdade. Cada lado tinha um episódio para defender — a crise
-de 2015, a eleição de 2018, a Covid — e ninguém conseguia fechar a questão. Este projeto tenta
+A pergunta surgiu numa discussão na faculdade. Cada lado tinha um episódio para defender, a crise
+de 2015, a eleição de 2018, a Covid, e ninguém conseguia fechar a questão. Este projeto tenta
 responder com dados.
 
 **Resposta curta: depende do período.** Na média de 2009 a 2026, cerca de **63% da variação
