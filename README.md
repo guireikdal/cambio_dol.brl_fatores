@@ -6,8 +6,8 @@ O que mexe mais com o real: o que acontece **lá fora** (juros americanos, avers
 força do dólar no mundo) ou o que acontece **aqui dentro** (Selic, risco-país, expectativas fiscais)?
 
 A pergunta surgiu numa discussão na faculdade. Cada lado tinha um episódio para defender, a crise
-de 2015, a eleição de 2018, a Covid, e ninguém conseguia fechar a questão. Este projeto tenta
-responder com dados.
+de 2015, a eleição de 2018, a Covid, e ninguém conseguia fechar a questão. Chegando em casa,
+resolvi testar com dados.
 
 **Resposta curta: depende do período.** Na média de 2009 a 2026, cerca de **63% da variação
 explicada** do câmbio vem de choques externos e 37% de choques domésticos. Mas a divisão muda
@@ -21,14 +21,14 @@ pesar mais que o mundo.
 1. **Na média, o mundo pesa mais.** Dos ~59% da variação mensal do câmbio que o modelo explica,
    cerca de 2/3 vêm de fora e 1/3 de dentro.
 2. **O canal externo é o dólar global, não os juros americanos.** Quando o dólar se fortalece contra
-   as moedas desenvolvidas, o real cai junto — é a variável de maior efeito no modelo.
+   as moedas desenvolvidas, o real cai junto. É a variável de maior efeito no modelo.
 3. **O juro americano de 10 anos tem efeito pequeno e de sinal contrário ao esperado.** Em 6 dos 8
    piores meses do real, os juros americanos *caíram*: nas crises, investidores compram Treasuries
    (fuga para a qualidade) ao mesmo tempo em que vendem emergentes. O título de 10 anos funciona
    mais como termômetro de medo e de crescimento do que como canal do *carry trade*.
 4. **O canal doméstico é o risco-país.** Selic e expectativa fiscal têm efeitos pequenos na variação
-   mensal — provavelmente porque o mercado já as antecipa.
-5. **O risco-país não é só "nosso".** Cerca de 35% da variação mensal do CDS brasileiro é contágio
+   mensal, provavelmente porque o mercado já as antecipa.
+5. **O risco-país não é só "nosso".** Pelo menos 35% da variação mensal do CDS brasileiro é contágio
    global, e quase metade do efeito do dólar global chega ao real **através** do risco-país.
 6. **A divisão muda no tempo** (janela móvel de 5 anos, datada pelo fim):
 
@@ -42,9 +42,9 @@ pesar mais que o mundo.
    O ponto mais baixo é **39% (janela terminando em set/2019)**, quando os cinco anos anteriores
    cobriam toda a crise doméstica.
 
-## O que olhamos (e por quê)
+## O que olhei (e por quê)
 
-Dados **mensais**, de jan/2009 a out/2026 (214 meses), sempre o valor do último dia útil do mês.
+Usei dados **mensais**, de jan/2009 a out/2026 (214 meses), sempre o valor do último dia útil do mês.
 
 | Bloco | Variável | Fonte | Por que esta |
 |---|---|---|---|
@@ -56,29 +56,29 @@ Dados **mensais**, de jan/2009 a out/2026 (214 meses), sempre o valor do último
 | Doméstica | CDS 5 anos do Brasil | Investing.com | Risco-país, cotado diariamente até hoje |
 | Doméstica | Resultado primário esperado | Focus/BCB | Expectativa fiscal do mercado |
 
-## O que deixamos de fora (e por quê)
+## O que deixei de fora (e por quê)
 
 | Ficou de fora | Motivo |
 |---|---|
-| **Crise de 2008** | O CDS disponível tem preços parados (sem negociação) durante quase todo 2008; a amostra começa em 2009 |
-| **EMBI+** como risco-país | Descontinuado em jul/2024. Usado só para validar o CDS: as variações mensais dos dois têm correlação de 0,84 |
+| **Crise de 2008** | O CDS disponível tem preços parados (sem negociação) durante quase todo 2008, por isso comecei a amostra em 2009 |
+| **EMBI+** como risco-país | Descontinuado em jul/2024. Usei só para validar o CDS: as variações mensais dos dois têm correlação de 0,84 |
 | **DXY** e índice amplo do dólar (Broad) | O DXY tem pesos de 1973 (o euro pesa ~58%); o Broad **inclui o real**, o que criaria correlação mecânica com a variável explicada |
 | **Dívida líquida** como variável fiscal | O Brasil é credor líquido em dólar: quando o real cai, a dívida líquida cai sozinha. Ela seria efeito do câmbio, não causa |
 | **Dívida bruta** | Só existe no Focus desde 2018, curto demais para janelas de 5 anos |
-| **Commodities, fluxo de capital, intervenções do BC** | Fora do escopo desta versão. São os candidatos naturais para reduzir os ~40% não explicados |
+| **Commodities, China, fluxo de capital, intervenções do BC** | Ficaram para uma próxima versão. São os candidatos naturais para reduzir os ~40% não explicados |
 | **Dados diários ou semanais** | Mais ruído e problemas de horário (a PTAX fecha às 13h de Brasília; o VIX no fechamento de Nova York). Selic e Focus têm ritmo mensal |
 
 ## Metodologia
 
-**1. Tratamento** ([03_tratamento](03_tratamento.ipynb)). Preços e índices (câmbio, dólar, VIX, CDS)
-entram em variação percentual (100·Δln); taxas e % do PIB (Treasury, Selic, primário) em diferença
-simples. A expectativa fiscal é convertida para um **horizonte fixo de 12 meses** — sem isso, a série
-"salta" toda virada de ano, quando o Focus troca o ano de referência. Os testes ADF e KPSS confirmam
-que todas as variações são estacionárias (os níveis do câmbio, do dólar e dos juros não são).
+**1. Tratamento** ([03_tratamento](03_tratamento.ipynb)). Transformei preços e índices (câmbio, dólar,
+VIX, CDS) em variação percentual (100·Δln) e taxas e % do PIB (Treasury, Selic, primário) em
+diferença simples. Converti a expectativa fiscal para um **horizonte fixo de 12 meses**: sem isso, a
+série "salta" toda virada de ano, quando o Focus troca o ano de referência. Os testes ADF e KPSS
+confirmam que todas as variações são estacionárias (os níveis do câmbio, do dólar e dos juros não são).
 
-**2. Regressão** ([04_regressao](04_regressao.ipynb)). MQO com variáveis padronizadas (cada coeficiente
-é o efeito de um choque de 1 desvio-padrão) e erros-padrão robustos HAC (Newey-West). Estimamos
-três versões: só externas, só domésticas e todas juntas.
+**2. Regressão** ([04_regressao](04_regressao.ipynb)). Estimei por MQO, com variáveis padronizadas
+(cada coeficiente é o efeito de um choque de 1 desvio-padrão) e erros-padrão robustos HAC
+(Newey-West), três versões: só externas, só domésticas e todas juntas.
 
 **3. O problema da sobreposição.** Somando o que cada bloco explica sozinho, passa-se do total: **30%
 da variação é explicada pelos dois blocos ao mesmo tempo**, porque o CDS anda junto com o dólar
@@ -93,24 +93,24 @@ global e o VIX. Sem resolver isso, não dá para dizer quanto é externo.
 
 ![Comparação dos métodos](resultados/figuras/1_comparacao_metodos.png)
 
-**4. Limpeza do risco-país** ([05_limpeza_risco](05_limpeza_risco.ipynb)). Cada variável doméstica é
-regredida nas três externas; o **resíduo** é o componente genuinamente doméstico (a parte do CDS que
-o cenário global não explica). Isso atribui a sobreposição ao bloco externo e reflete a hipótese de
+**4. Limpeza do risco-país** ([05_limpeza_risco](05_limpeza_risco.ipynb)). Regredi cada variável
+doméstica nas três externas e usei o **resíduo** como componente doméstico: a parte que as externas
+incluídas não explicam. Isso atribui a sobreposição ao bloco externo e reflete a hipótese de
 **economia pequena e aberta**: no curto prazo, o mundo afeta o Brasil, e não o contrário.
-Fazendo a limpeza no sentido inverso, o peso externo cairia de 63% para 12% — **a conclusão depende
-dessa hipótese**, que é teórica, mas tem apoio empírico (ver Validação).
+Se eu fizesse a limpeza no sentido inverso, o peso externo cairia de 63% para 12%. Ou seja, **a
+conclusão depende dessa hipótese**, que é teórica, mas tem apoio empírico (ver Validação).
 
 ![Efeito de cada variável](resultados/figuras/2_efeito_por_variavel.png)
 
-**5. Janelas móveis** ([06_janelas_moveis](06_janelas_moveis.ipynb)). A regressão limpa é refeita em
+**5. Janelas móveis** ([06_janelas_moveis](06_janelas_moveis.ipynb)). Refiz a regressão limpa em
 cada janela de 60 meses (e 84 meses, como robustez), deslizando um mês por vez. Cada ponto é datado
 no **fim** da janela. Consequência importante para a leitura: um episódio afeta o gráfico por cinco
-anos e **sai** de uma vez — o salto de out/2023, por exemplo, não vem de nada que aconteceu em 2023,
+anos e **sai** de uma vez. O salto de out/2023, por exemplo, não vem de nada que aconteceu em 2023,
 e sim da eleição de 2018 deixando a janela.
 
 ![Peso externo no tempo, versão técnica](resultados/figuras/3_peso_externo_no_tempo.png)
 
-**Validação.** A pasta [extra_var/](extra_var/) estima um VAR com decomposição da variância (FEVD),
+**Validação.** Na pasta [extra_var/](extra_var/), estimei um VAR com decomposição da variância (FEVD),
 um método diferente que chega aos mesmos 63% e às mesmas fases. O teste de Granger feito lá não
 encontra evidência de que o bloco doméstico antecipe o externo (p = 0,18), o que apoia a hipótese de
 economia pequena e aberta.
@@ -119,7 +119,10 @@ economia pequena e aberta.
 
 - Cerca de **40% da variação mensal do câmbio não é explicada** pelo modelo.
 - A divisão entre externo e doméstico **depende da hipótese** de que o mundo afeta o Brasil e não o
-  contrário.
+  contrário. Essa hipótese tende a favorecer o bloco externo.
+- Variáveis externas que ficaram de fora (commodities, China, contágio entre emergentes) acabam
+  contadas como domésticas. Por esse lado, o peso externo provavelmente está **subestimado**, e os
+  35% de contágio no CDS são um piso.
 - Os efeitos medidos são **contemporâneos** (mesmo mês) e de associação, não causalidade estrita.
 - As janelas móveis não têm intervalos de confiança: leia tendências de vários anos, não oscilações
   de um ou dois meses.
