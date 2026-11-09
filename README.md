@@ -118,7 +118,7 @@ e sim da eleição de 2018 deixando a janela.
 
 ![Peso externo no tempo, versão técnica](resultados/figuras/3_peso_externo_no_tempo.png)
 
-**Validação.** Na pasta [extra_var/](extra_var/), estimei um VAR com decomposição da variância (FEVD),
+**Validação.** Na pasta [extra_var/](extra_var/), coloquei uma outra abordagem recomendada e implementada com auxílio teórico e prático da IA. Um VAR com decomposição da variância (FEVD),
 um método diferente que chega a ~71% de peso externo no explicado e às mesmas fases. O teste de
 Granger feito lá não encontra evidência de que o bloco doméstico antecipe o externo (p = 0,33), o
 que apoia a hipótese de economia pequena e aberta.
