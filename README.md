@@ -45,8 +45,10 @@ quase empatar com a dos externos.
    | set/2023 – out/2026 | 78% | As crises domésticas saem da janela |
 
    O ponto mais baixo é **45% (janela terminando em nov/2021)**, que cobre a eleição de 2018, a
-   resposta fiscal à Covid e o furo do teto de gastos. Só em 10 das 155 janelas o Brasil pesou mais
-   que o mundo.
+   resposta fiscal à Covid e o furo do teto de gastos. Com intervalos de confiança de 95%
+   (bootstrap), o mundo pesa mais **com folga** nas janelas de 2013–2016 e de 2024–2026; nas janelas
+   de 2018 a 2023, o intervalo inclui os 50%, ou seja, os dados não distinguem os dois blocos. Em
+   nenhuma janela o Brasil pesa mais de forma estatisticamente clara.
 
 ## O que olhei (e por quê)
 
@@ -116,6 +118,11 @@ no **fim** da janela. Consequência importante para a leitura: um episódio afet
 anos e **sai** de uma vez. O salto de out/2023, por exemplo, não vem de nada que aconteceu em 2023,
 e sim da eleição de 2018 deixando a janela.
 
+Para o intervalo de confiança da janela de 60 meses, usei **bootstrap em blocos**: em cada janela,
+reamostrei os meses em blocos de 6 meses seguidos, refiz a análise inteira e repeti 500 vezes. A
+faixa azul do gráfico vai do percentil 2,5 ao 97,5. Os intervalos são largos (cerca de 43 pontos
+percentuais em média), o esperado para uma razão estimada com apenas 60 meses.
+
 ![Peso externo no tempo, versão técnica](resultados/figuras/3_peso_externo_no_tempo.png)
 
 **Validação.** Na pasta [extra_var/](extra_var/), coloquei uma outra abordagem recomendada e implementada com auxílio teórico e prático da IA. Um VAR com decomposição da variância (FEVD),
@@ -132,8 +139,8 @@ que apoia a hipótese de economia pequena e aberta.
   acabam contadas como domésticas. Por esse lado, o peso externo provavelmente está **subestimado**.
   Um exemplo concreto: incluir as commodities elevou o peso externo de 63% para 72%.
 - Os efeitos medidos são **contemporâneos** (mesmo mês) e de associação, não causalidade estrita.
-- As janelas móveis não têm intervalos de confiança: leia tendências de vários anos, não oscilações
-  de um ou dois meses.
+- Os intervalos de confiança das janelas móveis são largos: leia tendências de vários anos, não
+  oscilações de um ou dois meses.
 
 ## Estrutura do repositório
 
