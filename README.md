@@ -10,10 +10,12 @@ A pergunta surgiu numa discussão na faculdade. Cada lado tinha um episódio par
 de 2015, a eleição de 2018, a Covid, e ninguém conseguia fechar a questão. Chegando em casa,
 resolvi testar com dados.
 
-**Resposta curta: o mundo pesa mais, mas quanto depende do período.** Na média de 2009 a 2026,
-cerca de **72% da variação explicada** do câmbio vem de choques externos e 28% de choques
-domésticos. Nos períodos de crise doméstica, porém, o peso do Brasil cresce até quase empatar
-com o do mundo.
+**Resposta curta: o mundo pesa mais, mas quanto depende do período.** Sob a hipótese de pequena
+economia aberta, e atribuindo ao bloco externo a parcela de explicação compartilhada,
+aproximadamente **72% da variação cambial explicada pelo modelo está associada a fatores externos**
+(2009 a 2026). Essa predominância, entretanto, não é constante: em episódios de deterioração
+doméstica, a contribuição relativa dos fatores internos aumenta de forma expressiva, chegando a
+quase empatar com a dos externos.
 
 ![Peso dos fatores externos ao longo do tempo](resultados/figuras/6_post_peso_exterior.png)
 
